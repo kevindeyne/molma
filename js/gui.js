@@ -1,6 +1,8 @@
 $(document).ready(function() {
 	init();
 	keyHandler();
+	
+	//testData(); /***/
 });
 
 function init(){
@@ -16,12 +18,19 @@ function guiInit() {
 
 function keyHandler(){
 	$("#input").on('keydown', function(e) {
-	if (e.which == 13) {
+		if (e.which == 13) {
 	        e.preventDefault();
-			game.action($("#input").text());
+			
+			let a = $("#input").text();
+			if(a === "inv" || a === "inventory"){
+				game.player.printInventory();
+			} else {
+				game.action(a);	
+			}
+			
 			$("#input").html("").focus();
 	    }
-	});	
+	});
 }
 
 function scrollToBottom(){
@@ -37,4 +46,26 @@ function addResponse(text){
 
 function changeLocation(newLocation) {
 	$("#location").text(newLocation);
+}
+
+
+/****/
+function testData(){
+	setTimeout(function(){
+		enterTestData("get out");
+		enterTestData("go left");
+		enterTestData("open door");
+		enterTestData("take key");
+		enterTestData("get out");
+		enterTestData("inventory");
+	}, 110);	
+}
+
+function enterTestData(command) {
+	$("#input").text(command);
+	$("#input").trigger(enterKeyPress());
+}
+
+function enterKeyPress(){
+	return $.Event( "keydown", { which: 13 } );
 }

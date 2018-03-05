@@ -3,19 +3,19 @@ class Game {
 		let self = this;
 		this.builder = new Builder();
 		this.currentRoom = null;
+		this.player = new Character();
 	}
 
-	get currentRoom() {
-		return this._currentRoom;
-	}
-	set currentRoom(value) {
-		this._currentRoom = value;
-	}
+	get currentRoom() { return this._currentRoom; }
+	set currentRoom(value) { this._currentRoom = value;}
+	get player() { return this._player; }
+	set player(value) { this._player = value;}
 	
 	init() {
 		this.builder.init();
 		changeLocation(this.currentRoom.aliases[0]);
-		addResponse("You are in a car. Outside is a cold winter storm.");
+		addResponse("You are in a car. It has stalled, its fuel tank completely empty. Outside is a cold winter storm.");
+		addResponse("However, you seem to have stopped in a small town. You could probably find shelter here somewhere before the storm gets worse.");
 	}
 	
 	handleEventchain(eventChain) {
@@ -23,9 +23,12 @@ class Game {
 		for (let e of eventChain.events) {
 			addResponse(e);
 		}		
-		if(eventChain.nextRoom !== null){
+		if(isNotNull(eventChain.nextRoom)){
 			self.currentRoom = eventChain.nextRoom;
 			changeLocation(self.currentRoom.aliases[0]);
+		}
+		if(isNotNull(eventChain.inventory)){
+			self.player.addToInventory(eventChain.inventory.name, eventChain.inventory);
 		}
 	}
 	
@@ -37,6 +40,10 @@ class Game {
 			return false;
 		}
 	}
+}
+
+function isNotNull(value){
+	return value !== null && value !== undefined;
 }
 
 var game = new Game();
