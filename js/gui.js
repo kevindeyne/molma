@@ -39,8 +39,12 @@ function scrollToBottom(){
 	}, 50);
 }
 
-function addResponse(text){
-	$(".ss-content").append("<p>"+text+"</p>");
+function prepReponse(){
+	$("#tbody p.new").removeAttr("class");
+}
+
+function addResponse(text){	
+	$(".ss-content").append("<p class='new'>"+text+"</p>");
 	scrollToBottom();
 }
 

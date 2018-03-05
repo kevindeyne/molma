@@ -13,6 +13,7 @@ class Character {
 	
 	printInventory(){
 		let p = this.inventory;
+		prepReponse();
 		if(p.length == 0){
 			addResponse("Your current inventory is empty.");
 		} else {

@@ -59,3 +59,11 @@ body {
     top: 10vh;
 	width: 80%;
 }
+
+#tbody p{
+	opacity: 0.7;	
+}
+
+#tbody p.new{
+	opacity: 1;	
+}

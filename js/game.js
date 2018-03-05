@@ -19,7 +19,9 @@ class Game {
 	}
 	
 	handleEventchain(eventChain) {
-		let self = this;		
+		let self = this;
+		
+		prepReponse();
 		for (let e of eventChain.events) {
 			addResponse(e);
 		}		
