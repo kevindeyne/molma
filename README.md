@@ -1,2 +1,2 @@
-# molma
-Text adventure in javascript
+# Molma
+A text adventure in javascript
