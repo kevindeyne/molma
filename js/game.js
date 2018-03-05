@@ -24,14 +24,16 @@ class Game {
 		prepReponse();
 		if(isNotNull(eventChain.condition) && !eventChain.condition()){
 			addResponse(eventChain.conditionFail);
+			console.log("Condition failed");
 			return;
-		}		
+		}
 		for (let e of eventChain.events) {
 			addResponse(e);
 		}
 		
 		if(isNotNull(eventChain.nextRoom)){
 			self.currentRoom = eventChain.nextRoom;
+			console.log("Change current room to:" + game._currentRoom.aliases[0]);
 			changeLocation(self.currentRoom.aliases[0]);
 		}
 		if(isNotNull(eventChain.inventory)){
@@ -41,6 +43,7 @@ class Game {
 	}
 	
 	action(actionText) {
+		console.log(">" + actionText);
 		let eventChain = this.currentRoom.findEventChain(actionText);
 		if(eventChain !== null){
 			this.handleEventchain(eventChain);

@@ -57,11 +57,15 @@ function changeLocation(newLocation) {
 function testData(){
 	setTimeout(function(){
 		enterTestData("get out");
-		enterTestData("go left");
+		enterTestData("go right");
+		enterTestData("open door"); //should fail
+		enterTestData("go to shed");
 		enterTestData("open door");
 		enterTestData("take key");
 		enterTestData("get out");
 		enterTestData("inventory");
+		enterTestData("go to house");
+		enterTestData("open door");
 	}, 110);	
 }
 

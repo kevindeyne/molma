@@ -13,7 +13,7 @@ class Character {
 	
 	checkInventory(key){
 		var self = this;
-		return isNotNull(self.inventory[key]);
+		return isNotNull(self.inventory[key.name]);
 	}
 	
 	printInventory(){

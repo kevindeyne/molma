@@ -3,7 +3,7 @@ class Builder {
 		this.shedInside = this.shedInsideRoom();
 		this.shedOutside = this.shedOutsideRoom();
 		this.houseInside = new Room("House");
-		this.houseOutside = this.houseOutsideRoom();		
+		this.houseOutside = this.houseOutsideRoom();
 		this.outside = this.outsideRoom();
 		this.car = this.carRoom();
 	}
@@ -31,6 +31,12 @@ class Builder {
 		   "It has a small wooden door."],
 	   	   exitRoom: self.shedOutside
 	   });
+	   self.shedOutside.addEventchain({
+	   	   aliases: ["house", "right"],
+	   	   events: ["The house looms over you as you approach it. Nobody home.",
+		   "A large door with a heavy lock is visible."],
+	   	   exitRoom: outside
+	   });
        return outside;
     }
 	
@@ -57,12 +63,6 @@ class Builder {
 	   	   aliases: Keywords.alias.LEAVE,
 	   	   events: ["You leave the shed and are back outside."],
 	   	   exitRoom: outside
-	   });
-	   outside.addEventchain({
-	   	   aliases: ["house", "right"],
-	   	   events: ["The house looms over you as you approach it. Nobody home.",
-		   "A large door with a heavy lock is visible."],
-	   	   exitRoom: self.houseOutside
 	   });
        return outside;
     }
