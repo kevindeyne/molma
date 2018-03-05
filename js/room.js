@@ -14,12 +14,8 @@ class Room {
 			
     addEventchain(data) {
 		let self = this;
-		
-		if(null !== data.exitRoom){
-			self.exits.push(data.exitRoom);
-		}
-		
-		this.eventChains.push(new Eventchain(data.aliases, data.events));
+		let eventChain = new Eventchain(data.aliases, data.events, data.exitRoom);
+		this.eventChains.push(eventChain);
     }
 	
 	findEventChain(actionText) {

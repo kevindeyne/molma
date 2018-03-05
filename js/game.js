@@ -1,7 +1,8 @@
 class Game {
 	constructor() {
 		let self = this;
-		this.currentRoom = self.carRoom();
+		this.builder = new Builder();
+		this.currentRoom = null;
 	}
 
 	get currentRoom() {
@@ -12,6 +13,7 @@ class Game {
 	}
 	
 	init() {
+		this.builder.init();
 		changeLocation(this.currentRoom.aliases[0]);
 		addResponse("You are in a car. Outside is a cold winter storm.");
 	}
@@ -35,21 +37,6 @@ class Game {
 			return false;
 		}
 	}
-	
-	/* Rooms */
-    carRoom() {
-       let room = new Room("Inside the car");
-	   room.addEventchain({
-		   exitRoom: null,
-	   	   aliases: ["door", "exit", "leave"],
-	   	   events: ["You open the car door and step outside. The cold air burns on your skin.", 
-					"You see a shed to your left and a house to your right."] 
-	   });
-	   
-	   let exitRoom = new Room("Outside");
-	   room.eventChains[0].nextRoom = exitRoom;
-       return room;
-    }
 }
 
 var game = new Game();
