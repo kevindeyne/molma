@@ -1,8 +1,9 @@
 class Builder {
-	constructor() {
+	constructor() {		
 		this.shedInside = this.shedInsideRoom();
 		this.shedOutside = this.shedOutsideRoom();
-		this.houseOutside = new Room("Outside - Next to house");
+		this.houseInside = new Room("House");
+		this.houseOutside = this.houseOutsideRoom();		
 		this.outside = this.outsideRoom();
 		this.car = this.carRoom();
 	}
@@ -10,6 +11,27 @@ class Builder {
     init() {
 	   let self = this;
 	   game.currentRoom = self.car;
+    }
+	
+	houseOutsideRoom() {
+	   let self = this;
+       let outside = new Room("Outside - Next to house");
+	   outside.addEventchain({
+	   	   aliases: Keywords.alias.ENTER,
+	   	   events: ["You open the door to the house and step inside. You completed this little demo."],
+	   	   exitRoom: self.houseInside,
+		   condition: function(){
+			  return game.player.checkInventory(Items.shed.key);
+		   },
+		   conditionFail: "The door won't open. It's locked shut. You'll need to find the key."
+	   });
+	   outside.addEventchain({
+	   	   aliases: ["shed", "left"],
+	   	   events: ["You walk over to the shed, the snow softly crunching underneath your boots.", 
+		   "It has a small wooden door."],
+	   	   exitRoom: self.shedOutside
+	   });
+       return outside;
     }
 	
 	shedInsideRoom() {
@@ -36,6 +58,12 @@ class Builder {
 	   	   events: ["You leave the shed and are back outside."],
 	   	   exitRoom: outside
 	   });
+	   outside.addEventchain({
+	   	   aliases: ["house", "right"],
+	   	   events: ["The house looms over you as you approach it. Nobody home.",
+		   "A large door with a heavy lock is visible."],
+	   	   exitRoom: self.houseOutside
+	   });
        return outside;
     }
 	
@@ -56,7 +84,8 @@ class Builder {
 	   });
 	   room.addEventchain({
 	   	   aliases: ["house", "right"],
-	   	   events: ["The house looms over you as you approach it. Nobody home."],
+	   	   events: ["The house looms over you as you approach it. Nobody home.",
+		   "A large door with a heavy lock is visible."],
 	   	   exitRoom: self.houseOutside
 	   });
        return room;

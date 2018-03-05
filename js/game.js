@@ -22,16 +22,22 @@ class Game {
 		let self = this;
 		
 		prepReponse();
+		if(isNotNull(eventChain.condition) && !eventChain.condition()){
+			addResponse(eventChain.conditionFail);
+			return;
+		}		
 		for (let e of eventChain.events) {
 			addResponse(e);
-		}		
+		}
+		
 		if(isNotNull(eventChain.nextRoom)){
 			self.currentRoom = eventChain.nextRoom;
 			changeLocation(self.currentRoom.aliases[0]);
 		}
 		if(isNotNull(eventChain.inventory)){
 			self.player.addToInventory(eventChain.inventory.name, eventChain.inventory);
-		}
+		}		
+
 	}
 	
 	action(actionText) {

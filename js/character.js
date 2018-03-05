@@ -11,6 +11,11 @@ class Character {
        this.inventory[key] = value;
     }
 	
+	checkInventory(key){
+		var self = this;
+		return isNotNull(self.inventory[key]);
+	}
+	
 	printInventory(){
 		let p = this.inventory;
 		prepReponse();
