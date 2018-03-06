@@ -35,19 +35,10 @@ class Game {
 			addResponse(e);
 		}
 		
-		if(isNotNull(eventChain.conversationStart)){
-			let topics = "{ Topics to discuss: ";
-			let topicKeys = Object.keys(eventChain.conversationStart);
-			let joiner = ", ";
-			for (let topicKey of topicKeys) {
-				let isVisible = eventChain.conversationStart[topicKey].visible;
-				if(isTrueOrNull(isVisible)){
-					topics = topics + "'" + topicKey + "'" + joiner;
-				}
-			}
-			topics = topics.slice(0, -2) + " }";
-			addResponse(topics);
-			self.currentConversation = eventChain.conversationStart;
+		let conversation = eventChain.conversationStart;
+		if(isNotNull(conversation)){
+			this.showTopicsToDiscuss(conversation);
+			self.currentConversation = conversation;			
 		}
 		
 		if(isNotNull(eventChain.nextRoom)){
@@ -65,12 +56,12 @@ class Game {
 	handleConversation(conversation) {
 		if(isNotNull(conversation)){
 			let self = this;
-			console.log(conversation);
 			if(isTrueOrNull(conversation.visible)){
 				prepReponse();
 				for (let e of conversation.events) {
 					addResponse(e);
 				}
+				this.showTopicsToDiscuss(game.currentConversation);
 				
 				if(isNotNull(conversation.result)){
 					conversation.result();
@@ -96,6 +87,20 @@ class Game {
 				return false;
 			}
 		}
+	}
+	
+	showTopicsToDiscuss(conversation) {
+		let topics = "{ Topics to discuss: ";
+		let topicKeys = Object.keys(conversation);
+		let joiner = ", ";
+		for (let topicKey of topicKeys) {
+			let isVisible = conversation[topicKey].visible;
+			if(isTrueOrNull(isVisible)){
+				topics = topics + "'" + topicKey + "'" + joiner;
+			}
+		}
+		topics = topics.slice(0, -2) + " }";
+		addResponse(topics);
 	}
 }
 
