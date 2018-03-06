@@ -14,11 +14,12 @@ class Room {
 			
     addEventchain(data) {
 		let self = this;
-		let eventChain = new Eventchain(data.aliases, data.events, data.exitRoom, data.inventory, data.condition, data.conditionFail);
+		let eventChain = new Eventchain(data.aliases, data.events, data.exitRoom, data.inventory, data.condition, 
+		data.conditionFail, data.conversationStart);
 		this.eventChains.push(eventChain);
     }
 	
-	findEventChain(actionText) {
+	findEventChain(actionText){
 		let self = this;
 		let splitted = actionText.split(" ");
 		for (let e of self.eventChains) {

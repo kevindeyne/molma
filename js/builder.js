@@ -54,10 +54,20 @@ class Builder {
 	shedOutsideRoom() {
 	   let self = this;
        let outside = new Room("Outside - Next to shed");
+	   outside.doorBlocked = true;
 	   outside.addEventchain({
 	   	   aliases: Keywords.alias.ENTER,
 	   	   events: ["You open the door to the shed and step inside. On a small table in front of you lies a bronze key."],
-	   	   exitRoom: self.shedInside
+	   	   exitRoom: self.shedInside,
+		   condition: function(){
+			  return !outside.doorBlocked;
+		   },
+		   conditionFail: "You can't reach the door, there is a man in the way. He won't let you pass without speaking to him."
+	   });
+	   outside.addEventchain({
+	   	   aliases: Keywords.alias.TALK,
+	   	   events: ["You greet the man with a nod. He steps closer."],
+		   conversationStart: Conversations.manBlockingDoor.blockConversation
 	   });
 	   self.shedInside.addEventchain({
 	   	   aliases: Keywords.alias.LEAVE,
@@ -79,7 +89,7 @@ class Builder {
 	   room.addEventchain({
 	   	   aliases: ["shed", "left"],
 	   	   events: ["You walk over to the shed, the snow softly crunching underneath your boots.", 
-		   "It has a small wooden door."],
+		   "It has a small wooden door, blocked by a rough looking man."],
 	   	   exitRoom: self.shedOutside
 	   });
 	   room.addEventchain({

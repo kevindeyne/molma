@@ -52,7 +52,6 @@ function changeLocation(newLocation) {
 	$("#location").text(newLocation);
 }
 
-
 /****/
 function testData(){
 	setTimeout(function(){
@@ -60,12 +59,13 @@ function testData(){
 		enterTestData("go right");
 		enterTestData("open door"); //should fail
 		enterTestData("go to shed");
-		enterTestData("open door");
+		enterTestData("talk to man");		
+		/*enterTestData("open door");
 		enterTestData("take key");
 		enterTestData("get out");
 		enterTestData("inventory");
 		enterTestData("go to house");
-		enterTestData("open door");
+		enterTestData("open door");*/
 	}, 110);	
 }
 

@@ -4,12 +4,15 @@ class Game {
 		this.builder = new Builder();
 		this.currentRoom = null;
 		this.player = new Character();
+		this.currentConversation = null;
 	}
 
 	get currentRoom() { return this._currentRoom; }
 	set currentRoom(value) { this._currentRoom = value;}
 	get player() { return this._player; }
 	set player(value) { this._player = value;}
+	get currentConversation() { return this._currentConversation; }
+	set currentConversation(value) { this._currentConversation = value;}
 	
 	init() {
 		this.builder.init();
@@ -27,34 +30,95 @@ class Game {
 			console.log("Condition failed");
 			return;
 		}
+		
 		for (let e of eventChain.events) {
 			addResponse(e);
+		}
+		
+		if(isNotNull(eventChain.conversationStart)){
+			let topics = "{ Topics to discuss: ";
+			let topicKeys = Object.keys(eventChain.conversationStart);
+			let joiner = ", ";
+			for (let topicKey of topicKeys) {
+				let isVisible = eventChain.conversationStart[topicKey].visible;
+				if(isTrueOrNull(isVisible)){
+					topics = topics + "'" + topicKey + "'" + joiner;
+				}
+			}
+			topics = topics.slice(0, -2) + " }";
+			addResponse(topics);
+			self.currentConversation = eventChain.conversationStart;
 		}
 		
 		if(isNotNull(eventChain.nextRoom)){
 			self.currentRoom = eventChain.nextRoom;
 			console.log("Change current room to:" + game._currentRoom.aliases[0]);
 			changeLocation(self.currentRoom.aliases[0]);
+			self.currentConversation = null;
 		}
+		
 		if(isNotNull(eventChain.inventory)){
 			self.player.addToInventory(eventChain.inventory.name, eventChain.inventory);
-		}		
-
+		}
 	}
 	
+	handleConversation(conversation) {
+		if(isNotNull(conversation)){
+			let self = this;
+			console.log(conversation);
+			if(isTrueOrNull(conversation.visible)){
+				prepReponse();
+				for (let e of conversation.events) {
+					addResponse(e);
+				}
+				
+				if(isNotNull(conversation.result)){
+					conversation.result();
+				}
+			}
+		}
+	}
+		
 	action(actionText) {
-		console.log(">" + actionText);
-		let eventChain = this.currentRoom.findEventChain(actionText);
-		if(eventChain !== null){
-			this.handleEventchain(eventChain);
-		} else {
-			return false;
+		console.log("> " + actionText);
+		
+		let conversation = null;
+		if(isNotNull(this.currentConversation)){
+			conversation = ConversationUtils.findConversationChain(this.currentConversation, actionText);
+			this.handleConversation(conversation);
+		}
+		
+		if(null === conversation){
+			let eventChain = this.currentRoom.findEventChain(actionText);
+			if(isNotNull(eventChain)){
+				this.handleEventchain(eventChain);
+			} else {
+				return false;
+			}
 		}
 	}
 }
 
+function findEventChain(eventChains, actionText){
+	let splitted = actionText.split(" ");
+	for (let e of eventChains) {
+		for (let split of splitted) {
+			let foundAlias = e.aliases.find( alias => alias === split );
+			if(foundAlias !== undefined){
+				return e;
+			}				
+		}
+	}
+	
+	return null;
+}
+
 function isNotNull(value){
 	return value !== null && value !== undefined;
+}
+
+function isTrueOrNull(value){
+	return value === undefined || value === null || value;
 }
 
 var game = new Game();
