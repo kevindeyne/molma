@@ -1,17 +1,40 @@
 class Builder {
-	constructor() {		
-		this.shedInside = this.shedInsideRoom();
+	constructor() {
+		/*this.shedInside = this.shedInsideRoom();
 		this.shedOutside = this.shedOutsideRoom();
 		this.houseInside = new Room("House");
 		this.houseOutside = this.houseOutsideRoom();
 		this.outside = this.outsideRoom();
-		this.car = this.carRoom();
+		this.car = this.carRoom();*/
+		
+		//Chapter 6
+		
+		//Chapter 5
+		
+		//Chapter 4
+		
+		//Chapter 3
+		
+		//Chapter 2
+		
+		//Chapter 1		
+		this.apartment = Apartment.playerRoom;
 	}
 	
     init() {
 	   let self = this;
-	   game.currentRoom = self.car;
+	   game.currentRoom = self.apartment;
     }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	houseOutsideRoom() {
 	   let self = this;

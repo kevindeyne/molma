@@ -1,5 +1,5 @@
 class Eventchain {
-	constructor(aliases, events, nextRoom, inventory, condition, conditionFail, conversationStart) {
+	constructor(aliases, events, nextRoom, inventory, condition, conditionFail, conversationStart, previousRoom) {
 		var self = this;
 		this.aliases = aliases;
 	   	this.events = events;
@@ -8,5 +8,6 @@ class Eventchain {
 		this.condition = condition;
 		this.conditionFail = conditionFail;
 		this.conversationStart = conversationStart;
+		this.previousRoom = previousRoom;
 	}
 }

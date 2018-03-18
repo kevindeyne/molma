@@ -3,12 +3,15 @@ class Game {
 		let self = this;
 		this.builder = new Builder();
 		this.currentRoom = null;
+		this.previousRoom = null;
 		this.player = new Character();
 		this.currentConversation = null;
 	}
 
 	get currentRoom() { return this._currentRoom; }
 	set currentRoom(value) { this._currentRoom = value;}
+	get previousRoom() { return this._previousRoom; }
+	set previousRoom(value) { this._previousRoom = value;}
 	get player() { return this._player; }
 	set player(value) { this._player = value;}
 	get currentConversation() { return this._currentConversation; }
@@ -17,8 +20,8 @@ class Game {
 	init() {
 		this.builder.init();
 		changeLocation(this.currentRoom.aliases[0]);
-		addResponse("You are in a car. It has stalled, its fuel tank completely empty. Outside is a cold winter storm.");
-		addResponse("However, you seem to have stopped in a small town. You could probably find shelter here somewhere before the storm gets worse.");
+		addResponse("In your apartment, one door");
+		addResponse("Need to see Radja");
 	}
 	
 	handleEventchain(eventChain) {
@@ -41,7 +44,15 @@ class Game {
 			self.currentConversation = conversation;			
 		}
 		
+		if(isNotNull(eventChain.previousRoom)){
+			console.log("Go back to previous room");
+			changeLocation(self.previousRoom.aliases[0]);
+			self.currentConversation = null;
+			self.currentRoom = self.previousRoom;
+		}
+		
 		if(isNotNull(eventChain.nextRoom)){
+			self.previousRoom = self.currentRoom;
 			self.currentRoom = eventChain.nextRoom;
 			console.log("Change current room to:" + game._currentRoom.aliases[0]);
 			changeLocation(self.currentRoom.aliases[0]);
