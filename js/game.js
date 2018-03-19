@@ -3,15 +3,12 @@ class Game {
 		let self = this;
 		this.builder = new Builder();
 		this.currentRoom = null;
-		this.previousRoom = null;
 		this.player = new Character();
 		this.currentConversation = null;
 	}
 
 	get currentRoom() { return this._currentRoom; }
 	set currentRoom(value) { this._currentRoom = value;}
-	get previousRoom() { return this._previousRoom; }
-	set previousRoom(value) { this._previousRoom = value;}
 	get player() { return this._player; }
 	set player(value) { this._player = value;}
 	get currentConversation() { return this._currentConversation; }
@@ -43,16 +40,11 @@ class Game {
 			this.showTopicsToDiscuss(conversation);
 			self.currentConversation = conversation;			
 		}
-		
-		if(isNotNull(eventChain.previousRoom)){
-			console.log("Go back to previous room");
-			changeLocation(self.previousRoom.aliases[0]);
-			self.currentConversation = null;
-			self.currentRoom = self.previousRoom;
-		}
-		
+				
 		if(isNotNull(eventChain.nextRoom)){
-			self.previousRoom = self.currentRoom;
+			if(self.currentRoom.canReturnHere){
+				self.previousRoom = self.currentRoom;	
+			}
 			self.currentRoom = eventChain.nextRoom;
 			console.log("Change current room to:" + game._currentRoom.aliases[0]);
 			changeLocation(self.currentRoom.aliases[0]);

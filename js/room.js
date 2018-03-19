@@ -1,4 +1,4 @@
-class Room {
+class Room {	
 	constructor(alias) {
 		let self = this;
 		this.aliases = [alias];

@@ -2,7 +2,7 @@ $(document).ready(function() {
 	init();
 	keyHandler();
 	
-	//testData(); /***/
+	testData(); /***/
 });
 
 function init(){
@@ -55,17 +55,11 @@ function changeLocation(newLocation) {
 /****/
 function testData(){
 	setTimeout(function(){
-		enterTestData("get out");
-		enterTestData("go right");
-		enterTestData("open door"); //should fail
-		enterTestData("go to shed");
-		enterTestData("talk to man");		
-		/*enterTestData("open door");
-		enterTestData("take key");
-		enterTestData("get out");
-		enterTestData("inventory");
-		enterTestData("go to house");
-		enterTestData("open door");*/
+		enterTestData("open door");
+		enterTestData("go down");
+		enterTestData("open door");
+		enterTestData("go to simone");
+		enterTestData("go to complex");
 	}, 110);	
 }
 
