@@ -1,7 +1,6 @@
 class Game {
 	constructor() {
 		let self = this;
-		this.builder = new Builder();
 		this.currentRoom = null;
 		this.player = new Character();
 		this.currentConversation = null;
@@ -15,7 +14,7 @@ class Game {
 	set currentConversation(value) { this._currentConversation = value;}
 	
 	init() {
-		this.builder.init();
+		this.currentRoom = apmt.playerRoom();
 		changeLocation(this.currentRoom.aliases[0]);
 		addResponse("In your apartment, one door");
 		addResponse("Need to see Radja");
@@ -38,15 +37,15 @@ class Game {
 		let conversation = eventChain.conversationStart;
 		if(isNotNull(conversation)){
 			this.showTopicsToDiscuss(conversation);
-			self.currentConversation = conversation;			
+			self.currentConversation = conversation;
 		}
 				
 		if(isNotNull(eventChain.nextRoom)){
-			if(self.currentRoom.canReturnHere){
-				self.previousRoom = self.currentRoom;	
-			}
 			self.currentRoom = eventChain.nextRoom;
-			console.log("Change current room to:" + game._currentRoom.aliases[0]);
+			if (typeof self.currentRoom === "function") {
+				throw "Forgot to use the exitRoom as a function() in the setup, so it passed it along and now you can't load";
+			}
+			console.log("Change current room to:" + self.currentRoom.aliases[0]);
 			changeLocation(self.currentRoom.aliases[0]);
 			self.currentConversation = null;
 		}
@@ -107,7 +106,7 @@ class Game {
 	}
 }
 
-function findEventChain(eventChains, actionText){
+/*function findEventChain(eventChains, actionText){
 	let splitted = actionText.split(" ");
 	for (let e of eventChains) {
 		for (let split of splitted) {
@@ -119,7 +118,7 @@ function findEventChain(eventChains, actionText){
 	}
 	
 	return null;
-}
+}*/
 
 function isNotNull(value){
 	return value !== null && value !== undefined;

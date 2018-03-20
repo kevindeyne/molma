@@ -1,6 +1,9 @@
+var loadTime = 800;
 $(document).ready(function() {
 	init();
 	keyHandler();
+
+	loader();
 	
 	testData(); /***/
 });
@@ -8,6 +11,14 @@ $(document).ready(function() {
 function init(){
 	guiInit();
 	game.init();
+}
+
+function loader(){
+	$("#loader").fadeOut(loadTime);
+
+	setTimeout(function(){
+		$("#loader").remove();
+	}, loadTime+100);
 }
 
 function guiInit() {
@@ -60,7 +71,8 @@ function testData(){
 		enterTestData("open door");
 		enterTestData("go to simone");
 		enterTestData("go to complex");
-	}, 110);	
+		enterTestData("go up");
+	}, loadTime+50);	
 }
 
 function enterTestData(command) {
