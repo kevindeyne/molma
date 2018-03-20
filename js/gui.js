@@ -77,6 +77,16 @@ function testData(){
 		enterTestData("go to simone");
 		enterTestData("go to complex");
 		enterTestData("go up");
+		enterTestData("go into room");
+		enterTestData("talk to man");
+		enterTestData("what happened?");
+		enterTestData("trigger search party");
+		enterTestData("go outside");
+		enterTestData("talk to officers");
+		enterTestData("send them away");		
+		enterTestData("go down");
+		enterTestData("open door");
+		enterTestData("open big gate");
 	}, loadTime+50);	
 }
 

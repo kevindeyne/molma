@@ -2,15 +2,27 @@ class Apartment extends RoomContent {
   constructor() {
 	super();
 	this.bloodTrail = false;
+	this.searchPartyActive = false;
   }
   
   playerRoom() {
 	return this.getRoom("Your apartment", function(r){
 		r.addEventchain({
 			aliases: Keywords.alias.LEAVE,
-			events: ["You open the door and step outside into the hallway.", "Red door available to Radja's apartment, stairs down. Behind you is the blue door to your place."],
+			events: ["You open the door and step outside into the hallway.", "Red door available to Radja's apartment, stairs down. Behind you is the blue door to your place.",
+			new ComplexEvent("Officers arive", function(){ return apmt.searchPartyActive; })],
 			exitRoom: apmt.hallway()
 		});
+		
+		r.addEventchain({
+			aliases: Keywords.alias.TALK,
+	   	    events: ["You talk to the wounded man. He mentions something about the Visitor, begs you to hide him."],
+		    conversationStart: Conversations.apartment.woundedMan,
+			condition: function(){
+			  return apmt.bloodTrail;
+		    }
+		});
+				
 		return r;
 	});
   }
@@ -19,7 +31,7 @@ class Apartment extends RoomContent {
 	let self = this;
 	return this.getRoom("Hallway", function(r){
 		r.addEventchain({
-			aliases: self.extraKeywords.apply(this, [Keywords.alias.ENTER, "radja", "red"]),
+			aliases: ["radja", "red"],
 			events: ["Going into radja's apartment. Radja talking to sister. You mention the problem with your augs, she tells you to find capacitor with Simone downstairs."],
 			exitRoom: apmt.radjaHome()
 		});
@@ -30,11 +42,19 @@ class Apartment extends RoomContent {
 			exitRoom: apmt.downstairs()
 		});
 		
+		r.addEventchain({
+			aliases: Keywords.alias.TALK,
+	   	    events: ["You talk to the officers."],
+		    conversationStart: Conversations.apartment.officers,
+			condition: function(){ return apmt.searchPartyActive; }
+		});
+		
 		setTimeout(function() {
 			r.addEventchain({
-				aliases: ["my place", "blue", "back"],
-				events: ["Going back into my apartment. Nothing else here. Door behind me."],
-				exitRoom: apmt.hallway()
+				aliases: self.extraKeywords.apply(this, [Keywords.alias.ENTER, "my place", "blue", "back", "room"]),
+				events: [new ComplexEvent("Going back into my apartment. Nothing else here. Door behind me.", function(){ return !apmt.bloodTrail; }),
+						 new ComplexEvent("Carefully go back into my apartment. THE MAN is sitting in the corner, bleeding out.", function(){ return apmt.bloodTrail; })],
+				exitRoom: apmt.playerRoom()
 			});
 		}, 100);
 
@@ -81,6 +101,15 @@ class Apartment extends RoomContent {
 			exitRoom: apmt.simone(),
 			consequence: function(){ apmt.bloodTrail = true; }
 		});
+		
+		setTimeout(function() {
+			r.addEventchain({
+				aliases: ["gate"],
+				events: ["You push open the gate surrounding the apartments. You're in the central street."],
+				exitRoom: city.centralStreet()
+			});
+		}, 100);
+		
 		return r;
 	});
   }

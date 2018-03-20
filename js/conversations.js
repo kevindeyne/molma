@@ -17,17 +17,25 @@ class Conversations {
 
 var ConversationUtils = new Conversations();
 
-Conversations.manBlockingDoor = {};
-Conversations.manBlockingDoor.blockConversation = {
-	"empty house": {
-		events: ["You motion towards the big house. \"Who lives in this house? It seems locked tight.\", you ask.", "He smirks. \"Most people with common sense have fled from the storm already.\""]
+Conversations.apartment = {};
+Conversations.apartment.woundedMan = {
+	"what happened": {
+		events: ["Some exposition."]
 	},
-	"move aside": {
-		events: ["\"I need to get into the shed. Care to move aside?\", you ask.",
-		"He nods. \"Didn't mean to be in the way, sir\". He moves aside."],
-		visible: true,
+	"trigger search party": {
+		events: ["Triggering search party, should be coming into the apartment now."],
+		visible: !apmt.searchPartyActive,
 		result: function() {
-			game.currentRoom.doorBlocked = false;
+			apmt.searchPartyActive = true;
+		}
+	}
+}
+
+Conversations.apartment.officers = {
+	"send them away": {
+		events: ["Some exposition. Some consequences.", "Better head into the city."],
+		result: function() {
+			apmt.searchPartyActive = false;
 		}
 	}
 }

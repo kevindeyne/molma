@@ -25,7 +25,9 @@ class Game {
 		
 		prepReponse();
 		if(isNotNull(eventChain.condition) && !eventChain.condition()){
-			addResponse(eventChain.conditionFail);
+			if(isNotNull(eventChain.conditionFail)) {
+				addResponse(eventChain.conditionFail);
+			}			
 			console.log("Condition failed");
 			return;
 		}
@@ -49,7 +51,7 @@ class Game {
 			if (typeof self.currentRoom === "function") {
 				throw "Forgot to use the exitRoom as a function() in the setup, so it passed it along and now you can't load";
 			}
-			console.log("Change current room to:" + self.currentRoom.aliases[0]);
+			console.log("Change current room to: " + self.currentRoom.aliases[0]);
 			changeLocation(self.currentRoom.aliases[0]);
 			self.currentConversation = null;
 		}
@@ -107,6 +109,7 @@ class Game {
 		}
 		topics = topics.slice(0, -2) + " }";
 		addResponse(topics);
+		$("p.new:last").addClass("topics");
 	}
 }
 

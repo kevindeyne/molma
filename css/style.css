@@ -77,3 +77,9 @@ body {
 #tbody p.new{
 	opacity: 1;	
 }
+
+#tbody p.topics {
+    font-family: monospace;
+    margin-left: 35px;
+    color: #064fc1;
+}
