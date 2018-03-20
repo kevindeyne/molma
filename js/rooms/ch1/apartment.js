@@ -63,10 +63,10 @@ class Apartment extends RoomContent {
 		setTimeout(function() {
 			r.addEventchain({
 				aliases: Keywords.alias.STAIRS,
-				events: ["You walk up the hallway"],
+				events: ["You walk up to the hallway", new ComplexEvent("There is a clear blood trail, leading to your room.", function(){ return apmt.bloodTrail; })],
 				exitRoom: apmt.hallway()
 			});
-		}, 100);
+		}, 100);		
 		return r;
 	});
   }
@@ -78,14 +78,15 @@ class Apartment extends RoomContent {
 			events: ["You walk up to the shack of simone. You the capacitor here.",
 			"You hear a ruckus outside.",
 			"You see a trail of blood. It goes to the door of the apartment complex."],
-			exitRoom: apmt.simone()
+			exitRoom: apmt.simone(),
+			consequence: function(){ apmt.bloodTrail = true; }
 		});
 		return r;
 	});
   }
 
   simone() {
-	return this.getRoom("Simone's shack", function(r){		
+	return this.getRoom("Simone's shack", function(r){
 		setTimeout(function() {
 			r.addEventchain({
 				aliases: ["complex", "apartment", "door"],

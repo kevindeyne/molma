@@ -54,7 +54,12 @@ function prepReponse(){
 	$("#tbody p.new").removeAttr("class");
 }
 
-function addResponse(text){	
+function addResponse(text){
+	if(text instanceof ComplexEvent){
+		if(!text.condition()){ return; }
+		text = text.eText;
+	}
+	
 	$(".ss-content").append("<p class='new'>"+text+"</p>");
 	scrollToBottom();
 }

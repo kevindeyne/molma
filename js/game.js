@@ -30,6 +30,10 @@ class Game {
 			return;
 		}
 		
+		if(isNotNull(eventChain.consequence)){
+			eventChain.consequence();
+		}
+		
 		for (let e of eventChain.events) {
 			addResponse(e);
 		}
@@ -105,20 +109,6 @@ class Game {
 		addResponse(topics);
 	}
 }
-
-/*function findEventChain(eventChains, actionText){
-	let splitted = actionText.split(" ");
-	for (let e of eventChains) {
-		for (let split of splitted) {
-			let foundAlias = e.aliases.find( alias => alias === split );
-			if(foundAlias !== undefined){
-				return e;
-			}				
-		}
-	}
-	
-	return null;
-}*/
 
 function isNotNull(value){
 	return value !== null && value !== undefined;
