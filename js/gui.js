@@ -46,7 +46,7 @@ function keyHandler(){
 
 function scrollToBottom(){
 	setTimeout(function(){
-		$(".ss-content").scrollTop($(".ss-content").height() + 999);
+		$(".ss-content").scrollTop($(".ss-content").height() + 99999);
 	}, 50);
 }
 
@@ -99,7 +99,7 @@ function testData(){
 		//blackout station
 		enterTestData("enter the red room");
 		enterTestData("take the virus chip from the dead body");
-		/*enterTestData("open door");
+		enterTestData("open door");
 		enterTestData("board sub");
 		enterTestData("set course to hub station");
 		
@@ -107,7 +107,7 @@ function testData(){
 		enterTestData("take sea elevator up");
 		
 		//city
-		enterTestData("go to hacker");
+		/*enterTestData("go to hacker");
 		enterTestData("talk to Ellaine Burke");
 		enterTestData("ask support for attack");
 		enterTestData("give virus chip");*/

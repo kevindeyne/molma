@@ -8,5 +8,5 @@ class Item {
 	}
 }
 
-Items.shed = {};
-Items.shed.key = new Item("Bronze key");
+Items.redroom = {}
+Items.redroom.virus = new Item("Virus chip");
