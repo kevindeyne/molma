@@ -3,8 +3,9 @@
   "private": true,
   "version": "0.0.1",
   "description": "Source code of a text adventure game project in Javascript",
+  "main": "server.js",
   "scripts": {
-    "test":  "testcafe 'chrome:headless' tests/test1.js"
+    "test": "testcafe chrome,firefox tests/test1.js --app \"node server.js\""
   },
   "license": "MIT",
   "repository": {
@@ -13,7 +14,11 @@
   },
   "author": "Kevin Deyne <kevindeyne@gmail.com> (https://github.com/kevindeyne/)",
   "homepage": "https://kevindeyne.github.io/molma",
+  "dependencies": {
+    "connect": "^3.4.1",
+    "serve-static": "^1.11.1"
+  },
   "devDependencies": {
-    "testcafe": "^0.19.1"
+    "testcafe": "*"
   }
 }
