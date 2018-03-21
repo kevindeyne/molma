@@ -1,5 +1,7 @@
 # Molma
 
+[![Travis CI Build Status Badge](https://travis-ci.org/kevindeyne/molma.svg?branch=rewrite)](https://travis-ci.org/kevindeyne/molma)
+
 A text adventure in javascript. Master branch contains the demo (see gitpages), rewrite branch contains the WIP actual game and additional features.
 
 ## Setup

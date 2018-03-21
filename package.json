@@ -1,0 +1,19 @@
+{
+  "name": "molma",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Source code of a text adventure game project in Javascript",
+  "scripts": {
+    "test":  "testcafe chrome,firefox tests/test1.js"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevindeyne/molma.git"
+  },
+  "author": "Kevin Deyne <kevindeyne@gmail.com> (https://github.com/kevindeyne/)",
+  "homepage": "https://kevindeyne.github.io/molma",
+  "devDependencies": {
+    "testcafe": "^0.19.1"
+  }
+}

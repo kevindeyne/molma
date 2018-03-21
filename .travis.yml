@@ -1,15 +1,23 @@
-language: node_js
-node_js:
-  - "iojs"
-  - "7"
-sudo: false
+ language: node_js
+ node_js: "stable"
+
+ before_install:
+    - stty cols 80
+
+dist: trusty
+sudo: required
+
 addons:
-  sauce_connect:
-    username: $saucelabsuser
-    access_key: $saucelabskey
+  chrome: stable
+  firefox: latest
+  apt:
+    sources:
+     - google-chrome
+    packages:
+     - google-chrome-stable fluxbox
+
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
-  - rackup  # start a Web server
-  - sleep 3 # give Web server some time to bind to sockets, etc
+  - sleep 3
+  - fluxbox >/dev/null 2>&1 &
