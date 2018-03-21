@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe';
 
 fixture `Getting Started`
-	.page `http://devexpress.github.io/testcafe/example`;
+	.page `index.html`;
 
 test('My first test', async t => {
 // Test code
