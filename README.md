@@ -15,4 +15,3 @@ In addition to working on the story and gameplay, there are additional features 
 * Audio events
 * Dynamic background colors/gradients
 * Mobile support OR Electron implementation
-* Travis CI selenium tests
