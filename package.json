@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Source code of a text adventure game project in Javascript",
   "scripts": {
-    "test":  "testcafe chrome,firefox tests/test1.js"
+    "test":  "testcafe 'chrome:headless' tests/test1.js"
   },
   "license": "MIT",
   "repository": {
