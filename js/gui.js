@@ -71,6 +71,7 @@ function changeLocation(newLocation) {
 /****/
 function testData(){
 	setTimeout(function(){
+		//apartment
 		enterTestData("open door");
 		enterTestData("go down");
 		enterTestData("open door");
@@ -87,6 +88,33 @@ function testData(){
 		enterTestData("go down");
 		enterTestData("open door");
 		enterTestData("open big gate");
+		
+		//city
+		enterTestData("take sea elevator down");
+		
+		//subhub
+		enterTestData("board sub");
+		enterTestData("set course to blackout station");
+		
+		//blackout station
+		enterTestData("enter the red room");
+		enterTestData("take the virus chip from the dead body");
+		/*enterTestData("open door");
+		enterTestData("board sub");
+		enterTestData("set course to hub station");
+		
+		//subhub
+		enterTestData("take sea elevator up");
+		
+		//city
+		enterTestData("go to hacker");
+		enterTestData("talk to Ellaine Burke");
+		enterTestData("ask support for attack");
+		enterTestData("give virus chip");*/
+		
+		//do the attack stuff
+				
+		
 	}, loadTime+50);	
 }
 
