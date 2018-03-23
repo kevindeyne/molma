@@ -15,7 +15,7 @@ class Room {
     addEventchain(data) {
 		let self = this;
 		let eventChain = new Eventchain(data.aliases, data.events, data.exitRoom, data.inventory, data.condition, 
-		data.conditionFail, data.conversationStart, data.consequence);
+		data.conditionFail, data.conversationStart, data.consequence, data.audio);
 		this.eventChains.push(eventChain);
     }
 	

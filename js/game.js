@@ -31,6 +31,10 @@ class Game {
 			console.log("Condition failed");
 			return;
 		}
+
+		if(isNotNull(eventChain.audio)){
+			eventChain.playAudio();
+		}
 		
 		if(isNotNull(eventChain.consequence)){
 			eventChain.consequence();

@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 	loader();
 	
-	testData(); /***/
+	//testData(); /***/
 });
 
 function init(){
@@ -24,22 +24,30 @@ function loader(){
 function guiInit() {
 	SimpleScrollbar.initEl(document.querySelector("#tbody"));
 	$("#input").focus();
+	focusTextbox();
 	scrollToBottom();
 }
 
+function focusTextbox() {
+	setTimeout(function(){
+		$("#input").focus();
+		focusTextbox();
+	}, 2000);
+}
+
 function keyHandler(){
-	$("#input").on('keydown', function(e) {
+	$("#input").on('keydown', function(e) {		
 		if (e.which == 13) {
 	        e.preventDefault();
 			
-			let a = $("#input").text();
+			let a = $("#input").val();
 			if(a === "inv" || a === "inventory"){
 				game.player.printInventory();
 			} else {
 				game.action(a);	
 			}
 			
-			$("#input").html("").focus();
+			$("#input").val("").focus();
 	    }
 	});
 }
